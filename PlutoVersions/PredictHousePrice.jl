@@ -4,6 +4,22 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 177fe39a-0a5e-4863-9a98-97253dae4dad
+begin
+	# House Sales Data, ETL, Build Predictive Model(linear regression), 
+	# Assess Model, Deploy Model. Training data  'house100Data.csv'
+	# R^2 = 0.75  Price explained by the indep. variables
+	import Pkg; 
+	Pkg.add("DataFrames")
+	Pkg.add("Missings")
+	Pkg.add("Plots")
+	Pkg.add("CSV")
+	using DataFrames
+	using CSV
+	using Missings
+	using Plots
+end
+
 # ╔═╡ ccd33cef-a4f3-43c3-aacc-f0326d07be00
 md"""
 ### House Price Prediction Exercise - data_description.txt
@@ -20,6 +36,9 @@ LandContour — Flatness of the property
 Utilities — Type of utilities available  
 LotConfig — Lot configuration  
 """
+
+# ╔═╡ 71302cb3-cef2-4956-a653-48b8e6f421ac
+2+2
 
 # ╔═╡ 4f32bf65-12f8-4496-a99e-6e2bb3c0d130
 df2 = DataFrame(:A => [5, 10, 15, 20, 25], :Y => [5, 10, missing, 20, 15])
@@ -214,6 +233,13 @@ end
 numericCols = [:LotArea, :OverallQual, :OverallCond, :YearBuilt, :YearRemodAdd, :MasVnrArea, :BsmtFinSF1, :BsmtFinSF2, :BsmtUnfSF, :TotalBsmtSF, :1stFlrSF, :2ndFlrSF, :LowQualFinSF, :GrLivArea, :BsmtFullBath, :BsmtHalfBath, :FullBath, :HalfBath, :BedroomAbvGr, :KitchenAbvGr, :TotRmsAbvGrd, :Fireplaces, :GarageYrBlt, :GarageCars, :GarageArea, :WoodDeckSF, :OpenPorchSF, :EnclosedPorch, :3SsnPorch, :ScreenPorch, :PoolArea, :MiscVal, :MoSold, :YrSold]
 
 
+# ╔═╡ 3d04dc09-ab77-4d11-8c16-9b04742b54d0
+begin
+	# plot histogram of predicted price
+	histogram(Yp, label="Predicted Price")
+	
+end
+
 # ╔═╡ bfa74588-02a5-4157-b1c5-9fb46044a3d9
 # Problem Set
 # 1. Build a linear regression model to predict the price of houses in the test.csv file
@@ -239,6 +265,21 @@ sum(train[:,33] )
 select!(train, Not(:PoolArea))
 size(train)
 
+# ╔═╡ 72d6fb52-abfa-40cc-9610-95343d3231bd
+begin
+	# drop non numeric columns
+	function dropNonNumericColumns(df)
+	    nonNumericColumns = getNonNumericColumns(df)
+	    for i in 1:length(nonNumericColumns)
+	        select!(df, Not(Symbol(nonNumericColumns[i])))
+	    end
+	    return df
+	end
+	train = dropNonNumericColumns(train)
+	size(train)
+	
+end
+
 # ╔═╡ 27c9cac8-0f2e-466c-b97f-baa1cc7df5a1
 begin
 	# build linear regression model
@@ -256,20 +297,10 @@ begin
 	model = buildLinearRegressionModel(X, Y)
 end
 
-# ╔═╡ 177fe39a-0a5e-4863-9a98-97253dae4dad
+# ╔═╡ d57a171a-839c-4a7d-85aa-0ccfa12ff4ec
 begin
-	# House Sales Data, ETL, Build Predictive Model(linear regression), 
-	# Assess Model, Deploy Model. Training data  'house100Data.csv'
-	# R^2 = 0.75  Price explained by the indep. variables
-	import Pkg; 
-	Pkg.add("DataFrames")
-	Pkg.add("Missings")
-	Pkg.add("Plots")
-	Pkg.add("CSV")
-	using DataFrames
-	using CSV
-	using Missings
-	using Plots
+	train = CSV.read("house100Data.csv", DataFrame)
+	size(train)
 end
 
 # ╔═╡ c02fd9e8-98e5-4f0e-9d49-d6bb216dcf55
@@ -279,20 +310,6 @@ begin
 	cor(Matrix(train))
 	# Plot heatmap of correlation matrix
 	heatmap(cor(Matrix(train)))
-end
-
-# ╔═╡ d57a171a-839c-4a7d-85aa-0ccfa12ff4ec
-begin
-	train = CSV.read("house100Data.csv", DataFrame)
-	size(train)
-end
-
-# ╔═╡ 3d04dc09-ab77-4d11-8c16-9b04742b54d0
-begin
-	# plot histogram of predicted price
-	using Plots
-	histogram(Yp, label="Predicted Price")
-	
 end
 
 # ╔═╡ 52ed110a-f713-4304-8396-956feb699a4e
@@ -308,23 +325,9 @@ begin
 	size(train)
 end
 
-# ╔═╡ 72d6fb52-abfa-40cc-9610-95343d3231bd
-begin
-	# drop non numeric columns
-	function dropNonNumericColumns(df)
-	    nonNumericColumns = getNonNumericColumns(df)
-	    for i in 1:length(nonNumericColumns)
-	        select!(df, Not(Symbol(nonNumericColumns[i])))
-	    end
-	    return df
-	end
-	train = dropNonNumericColumns(train)
-	size(train)
-	
-end
-
 # ╔═╡ Cell order:
 # ╟─ccd33cef-a4f3-43c3-aacc-f0326d07be00
+# ╠═71302cb3-cef2-4956-a653-48b8e6f421ac
 # ╠═177fe39a-0a5e-4863-9a98-97253dae4dad
 # ╠═d57a171a-839c-4a7d-85aa-0ccfa12ff4ec
 # ╠═66013ac0-97ff-45d5-a704-5467853749b5
@@ -348,5 +351,3 @@ end
 # ╠═564d98c8-04bf-4f5e-90a7-68e1db06c3ab
 # ╠═3d04dc09-ab77-4d11-8c16-9b04742b54d0
 # ╠═bfa74588-02a5-4157-b1c5-9fb46044a3d9
-# ╠═898f7277-c933-4c7d-9ff8-185f75a2c158
-# ╠═962c702a-0b23-47de-81ff-4b4cf5ba972e
