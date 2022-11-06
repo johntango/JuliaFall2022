@@ -309,7 +309,7 @@ begin
 end
 
 # ╔═╡ 564d98c8-04bf-4f5e-90a7-68e1db06c3ab
-# selet numeric columns only
+# $ selet numeric columns only
 #numericCols = [:LotArea, :OverallQual, :OverallCond, :YearBuilt, :YearRemodAdd, #:MasVnrArea, :BsmtFinSF1, :BsmtFinSF2, :BsmtUnfSF, :TotalBsmtSF, :1stFlrSF, #:2ndFlrSF, :LowQualFinSF, :GrLivArea, :BsmtFullBath, :BsmtHalfBath, :FullBath, #:HalfBath, :BedroomAbvGr, :KitchenAbvGr, :TotRmsAbvGrd, :Fireplaces, :GarageYrBlt, #:GarageCars, :GarageArea, :WoodDeckSF, :OpenPorchSF, :EnclosedPorch, :3SsnPorch, #:ScreenPorch, :PoolArea, :MiscVal, :MoSold, :YrSold]
 
 
