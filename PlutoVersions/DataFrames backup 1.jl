@@ -15,52 +15,6 @@ begin
     using CSV
 end
 
-# ╔═╡ 895befb1-87e9-4613-9dc3-defc7d6b7fb2
-begin
-	df0 = DataFrame(
-	colour = ["green","blue","white","green","green"],
-	shape  = ["circle", "triangle", "square","square","circle"],
-	border = ["dotted", "line", "line", "line", "dotted"],
- 	area   = [1.1, 2.3, 3.1, missing, 5.2])
-end 
-
-# ╔═╡ aa5039a1-0ed5-47ae-b767-01d62bb21863
-# explore the dataframe
-begin
-	for c in eachrow(df0)    # eachcol(df) for columns
-	    print(c)
-	end
-end
-
-
-# ╔═╡ da0500b7-2787-4be7-b0ca-86afb8cccd8b
-begin
-	#Referencing is obtained using the exclamation mark ! for the row position 
-	#(to emphasize that referenced data could be changed in the new object) 
-	myRef1 = df0[!, :colour]
-	#myRef1[1] = "pink"   # changes the original dataframe as well
-	#myRef1
-end
-
-# ╔═╡ 35172a0b-aa40-458c-9c12-21b038f2be02
-# we can also reference a column by name
-myRef2 = df0.colour
-
-# ╔═╡ a7953530-07ec-470f-b885-ba6192500c2d
-begin
-	dict0 = Dict(:Color=>["green","blue","white","green","green"],:Shape=>["circle", "triangle", "square","square","circle"],:Border=>["dotted", "line", "line", "line", "dotted"],:Area=>[1.1, 2.3, 3.1, missing, 5.2])
-	df01 = DataFrame(dict0)
-	#select(df, Not(:Area))   # drop column :Area
-end
-
-# ╔═╡ 12a7b0dc-c29c-42f5-bec9-7ba05732baf0
-"""we have a list of 3 books and their authors. 
- Some of the books have more than one author
- list of books "The Hobbit", "The Lord of the Rings", "The Silmarillion"
- list of authors "J.R.R. Tolkien", "J.R.R. Tolkien",     "J.R.R. Tolkien" and "Christopher Tolkien"
- construct a dataframe with two columns: Book and Author
-"""
-
 # ╔═╡ a45f6e31-23e1-4567-8d1e-b3908e8537d5
 tuples = (:H => [5, 10], :J => [10, 15])
 
@@ -187,18 +141,13 @@ end
 
 # ╔═╡ Cell order:
 # ╠═0ea5a8bc-673d-434b-8b08-d039c9f151f3
-# ╠═895befb1-87e9-4613-9dc3-defc7d6b7fb2
-# ╠═aa5039a1-0ed5-47ae-b767-01d62bb21863
-# ╠═da0500b7-2787-4be7-b0ca-86afb8cccd8b
-# ╠═35172a0b-aa40-458c-9c12-21b038f2be02
-# ╠═a7953530-07ec-470f-b885-ba6192500c2d
-# ╠═12a7b0dc-c29c-42f5-bec9-7ba05732baf0
 # ╠═a45f6e31-23e1-4567-8d1e-b3908e8537d5
 # ╠═e5fb9d0a-508c-44b2-9cea-12f199b98148
 # ╠═3e8e796e-3b70-435f-8001-ed0589406ffe
 # ╠═c6f8379c-37c7-4102-804c-f5da5e86206c
 # ╠═5ca0c1ae-0eb1-44d2-a8ea-0ed49b3bbdd2
 # ╠═6fe93942-ae92-40f8-a605-1a8f233d3a6f
+# ╠═94193c52-4c3e-423a-babe-05ccf393da81
 # ╠═d120a06b-a0a7-40b4-a60a-7b578f0be6c4
 # ╠═a7344750-577e-4324-a73e-fe093c8c4214
 # ╠═b775d780-3ce5-4ee5-bf35-607f10e4bdbd
