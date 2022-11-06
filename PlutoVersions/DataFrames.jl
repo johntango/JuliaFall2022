@@ -6,13 +6,13 @@ using InteractiveUtils
 
 # ╔═╡ 0ea5a8bc-673d-434b-8b08-d039c9f151f3
 begin
-	import Pkg; 
-	Pkg.add("DataFrames")
-	Pkg.add("Missings")
-	Pkg.add("CSV")
-	using DataFrames
-	using Missings
-	using CSV
+    import Pkg
+    Pkg.add("DataFrames")
+    Pkg.add("Missings")
+    Pkg.add("CSV")
+    using DataFrames
+    using Missings
+    using CSV
 end
 
 # ╔═╡ a45f6e31-23e1-4567-8d1e-b3908e8537d5
@@ -23,7 +23,7 @@ typeof(tuples)
 
 # ╔═╡ 3e8e796e-3b70-435f-8001-ed0589406ffe
 begin
-df = DataFrame(tuples)
+    df = DataFrame(tuples)
 end
 
 
@@ -36,14 +36,10 @@ typeof(dict)
 # ╔═╡ 6fe93942-ae92-40f8-a605-1a8f233d3a6f
 df2 = DataFrame(dict)
 
-# ╔═╡ 94193c52-4c3e-423a-babe-05ccf393da81
-begin
-df3 = CSV.read("house100Data.csv", DataFrame)
-end
 
 
 # ╔═╡ d120a06b-a0a7-40b4-a60a-7b578f0be6c4
-df4 = DataFrame(:X => [5,10,15,20], :Y => [5,10,15,20])
+df4 = DataFrame(:X => [5, 10, 15, 20], :Y => [5, 10, 15, 20])
 
 # ╔═╡ a7344750-577e-4324-a73e-fe093c8c4214
 push!(df4, [10, 15])
@@ -66,7 +62,7 @@ df4[!, :Z] = [1, 2, 3, 4, 5]
 show(df4)
 
 # ╔═╡ c7bb7f3c-ae0a-4123-b0b9-947e61077bfe
-show(df4, allcols = true)
+show(df4, allcols=true)
 
 # ╔═╡ 6467c29e-69fe-47a1-9b1e-97367f64d604
 first(df4, 2)
@@ -90,7 +86,7 @@ df4[2, 2]
 df5 = DataFrame(:A => [5, 10, 15, 20, 25], :Y => [5, 10, 15, 20, 15])
 
 # ╔═╡ 6df13a2e-b1f6-44ff-b28a-7fc498403cd5
-innerjoin(df4, df5, on = :Y)
+innerjoin(df4, df5, on=:Y)
 
 # ╔═╡ cd349c13-665d-4065-838a-639a31a5a146
 sort!(df5)
@@ -113,31 +109,31 @@ md"""
 """
 
 # ╔═╡ 548ff73f-e0cc-48cd-83d4-7028812f458a
-df7  = DataFrame(x=[1,missing,3,nothing,5,NaN], y='a':'f')
+df7 = DataFrame(x=[1, missing, 3, nothing, 5, NaN], y='a':'f')
 
 
 # ╔═╡ 3d353fea-c034-4548-83b9-2ca935f7e5df
-filter( [1] => x -> !any(f -> f(x), (ismissing, isnothing, isnan)), df7)
+filter([1] => x -> !any(f -> f(x), (ismissing, isnothing, isnan)), df7)
 
 # ╔═╡ 65e6ed93-fc1c-4223-bd34-85afd38a37cd
 filter(:x => x -> !any(f -> f(x), (ismissing, isnothing, isnan)), df7)
 
 # ╔═╡ dcd0f805-79ee-4b06-a40f-b2d0525e6099
 begin
-df8 = DataFrame(x=[missing,NaN,3432.34,432.2,NaN, 43.])
-# select numerical type columns from a DataFrame df3
-filter(:x => x -> !any(f -> f(x), (ismissing, isnothing, isnan)), df8)
+    df8 = DataFrame(x=[missing, NaN, 3432.34, 432.2, NaN, 43.0])
+    # select numerical type columns from a DataFrame df3
+    filter(:x => x -> !any(f -> f(x), (ismissing, isnothing, isnan)), df8)
 end
 
 # ╔═╡ 934cbf7f-acfa-4413-af3f-5fa37134b853
-df9 = DataFrame(A=[1,3,4,5,6,432], B=[1,3,4,5,6,3], C=["a","b","c","d","e","f"])
+df9 = DataFrame(A=[1, 3, 4, 5, 6, 432], B=[1, 3, 4, 5, 6, 3], C=["a", "b", "c", "d", "e", "f"])
 
 # ╔═╡ cdb7f749-4276-4d5a-b314-ae7488fa6051
 begin
-	#using Missings
-	# drop columns with not number values
-	dfa = df9[:, map(col -> eltype(col) <: Number, eachcol(df9))]
-	# note use of subtype operator <:
+    #using Missings
+    # drop columns with not number values
+    dfa = df9[:, map(col -> eltype(col) <: Number, eachcol(df9))]
+    # note use of subtype operator <:
 end
 
 
